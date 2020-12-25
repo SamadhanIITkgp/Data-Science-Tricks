@@ -1,0 +1,79 @@
+1.numpy.meshgrid:
+link- https://www.geeksforgeeks.org/numpy-meshgrid-function/
+Return coordinate matrices representing co-ordinate point of perticular dimension from 1d coordinate vectors.
+ex. x = np.arange(-5, 5, 0.1)
+    y = np.arange(-5, 5, 0.1)
+    xx, yy = np.meshgrid(x, y, sparse=True) # sparse=true,make sparse output arrays
+    xx: returns x coordinates of created grid, yy : returns y coordinates of created grid
+    
+2.numpy.ndenumerate(arr):Multidimensional array index iterator.Return an iterator yielding pairs of array coordinates and values.
+ ex. a = np.array([[1, 2], [3, 4]])
+     for index, x in np.ndenumerate(a):
+         print(index, x)
+   o/t:>> (0, 0) 1
+       >> (0, 1) 2
+3.numpy.ravel() :returns contiguous flattened array(1D array with all the input-array elements and with the same type as it). 
+it is equivalent to arr.reshape(-1).
+ex. x = np.array([[1, 2, 3], [4, 5, 6]])
+    np.ravel(x)
+o/t >> array([1, 2, 3, 4, 5, 6])
+
+3.np.linspace(start, stop, num=50) # num:- Number of samples to generate.
+Return evenly spaced numbers over a specified interval.
+
+4.np.arange(start,stop,step):
+ ex. np.arange(3,7,2)
+   >> array([3, 5])
+
+5. np.cumsum(a, axis=None, dtype=None): 
+pars:axis-Axis along which the cumulative sum is computed,dtype- of the returned array elms
+this function is used when we want to compute the cumulative sum of array elements along a given axis.
+
+6.numpy.ones(shape, dtype=float): 
+Return a new array of given shape and type, filled with ones.
+ex. np.ones((2, 1))
+   array([[1.],
+         [1.]])
+7.numpy.zeros(shape, dtype=float):
+Return a new array of given shape and type, filled with zeros.
+ex. np.zeros((2, 1))       
+    array([[ 0.],
+           [ 0.]])
+           
+8.numpy.asmatrix(arr, dtype=None): #dtype-Data-type of the output matrix
+interpret the input as a matrix.it doesn't make copy if the input is already a matrix or an ndarray. 
+
+9.numpy.digitize(x, bins, right=False):Return the indices of the bins to which each value in input array belongs.
+10.numpy.logspace(start, stop, num=50, endpoint=True, base=10.0):
+Return numbers spaced evenly on a log scale.
+
+10.np.repeat(a, repeats): Repeat elements of an array.
+ex.1.np.repeat([1,3], 2)     
+   >>array([1, 1, 3, 3])
+   
+11.numpy.random.choice(a, size=None, replace=True, p=None):
+pars: https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.random.choice.html
+Generates a random sample from a given 1-D array.
+ex. 1.np.random.choice([-1,0,1], 2)  2.np.random.choice(5, 3): >>array([0, 3, 4])
+   >> array([0,-1])                     
+12.numpy.vstack(tuple of arrays):Stack arrays in sequence vertically (row wise).
+ex. np.vstack((a,b))
+    >>array([[1, 2, 3],
+         [2, 3, 4]])
+         
+13.numpy.hstack(tuple of arr):Stack arrays in sequence horizontally (column wise).
+ex. np.hstack((a,b))
+  >>array([1, 2, 3, 2, 3, 4])
+
+14.numpy.random.randn((dimention)):Return a sample (or samples) from the “standard normal” distribution.
+ex. np.random.randn(2,3)
+  >>[-0.64863636 -0.28730311 -0.56747547]
+    [ 0.9427455  -0.88447682  0.2324423 ]
+    
+15. np.hstack((ten1,ten2)) : will stack two tensors horizontally for which both tensors must have same no of rows
+
+16. np.dot() return classic matrix multiplication of 2 mtr's while np.multiply() return elementwise multiplication
+17. np.concatenate((arr1, arr2)): joining 2 array's
+18. np.array_split(arr, 2): split the array in 2 parts
+19. np.where(arr == 4) : will return array of indexes where value is equal to 4
+20. np.random.rand() method return a random float between o and 1, np.random.randint(100, size=(3,5)) will return array of shape (3,5) with elm betwn 1-100

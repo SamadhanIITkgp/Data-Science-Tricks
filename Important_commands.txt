@@ -1,0 +1,97 @@
+> dir(math): returns list of all atributes and funtions of any object like class,module
+1.df_train.isnull().sum(axis = 0).sort_values(ascending=False): will display null values in each column in descending order
+2.new_data = df_train.dropna(thresh =len(df_train) * .8 , axis = 1):droping column where more than 80% values are null, default axis=0(rows).
+3.df['a'] = df['a'].astype(float): this will convert data type of column a to float.
+4.df.drop(['B', 'C'], axis=1): will drop column B and C from dataframe
+5.df['tweet'].apply(lambda x : len(x.split())) #here calculating word counts of each tweet :we can pass a user-defined function and apply   it to every single data point of the Pandas series
+6.data["Team"].isin(["Engineering", "Distribution"]):selects rows having a particular(or Multiple) value in a particular column in df.
+7.new_df = df.copy(): Copying the dataframe
+8.df['diagnosis'].value_counts(): will give count of each unique values in column
+9.cat_columns = df.select_dtypes(['cat_names']).columns: to select automatically all columns with a certain dtype in a dataframe 
+10.df[df.columns[2:]] : selecting all columns excluding first 2 in dataframe  
+11.dataset.isnull().sum(): will give no of null values in each column
+12.df.columns.difference(['Class']: select the column except 'class' column, you can also give multiple entries
+13.df[df.columns[8]] : selecting column by its index 
+14.data[data.columns] = data[data.columns].replace(0,np.NaN,inplace=False): replacing 0 values in selected columns with nan.
+15.df.fillna(0) : this command fill replace the nan values with 0 in entire dataset
+16.d = {'Y': 1, 'N': 0}
+  df['Hired'] = df['Hired'].map(d) :we can use dict & map to convert categorical data to numeric data this will map Y as 1 in hired attr.
+17.colnames=['TIME', 'X', 'Y', 'Z'] 
+  user1 = pd.read_csv('dataset/1.csv', names=colnames, header=None) : to give name of headers in df while reading df 
+18.x = np.arange(-3, 3, 0.001): parameter values-(start,stop,step_size) generate values from start to stop with diff of step_size
+19.df.loc[i,:]=1,2,3 : adding new row at ith position into dataframe 
+20. df.loc[:,'foo'] = 42: this commands add 42 to all rows of foo column
+21.movieProperties = ratings.groupby('movie_id').agg({'rating': [np.size, np.mean]}) : will group entire dataset by movie ID and calculate    total no of ratings and average rating for each movie corresponding to rating column in ratings dataframe.
+   >movieProperties['rating']['size'] :accessing size column 
+22.pd.options.display.float_format = '{:.2f}'.format: round values to two decimal places in python pandas 
+23.to drop columns: 1.df.drop(['B', 'C'], axis=1), 2. df.drop(columns=['B', 'C']) 
+   to drop rows: 1. df.drop([0, 1])  , pars: 1.axis=default:0(row), 1(col) , 2.inplace=default: False(doesn't affect orig df)
+24. plt.savefig('path', format='png'): saving plot as png at given path
+25.df.sort_values(['Years Experience']):Sorting your DataFrame by a specific column 
+26.numpy.polyfit(x, y, deg) :Fits a polynomial of degree deg to points (x, y) and Returns a vector of coefficients of deg degree polynomial that minimises the squared error.
+27.numpy.poly1d(c):Constructs the n degree polynomial from given coefficient vector c.
+28.movieRatings.corrwith(starWarsRatings) :computes the pairwise correlation of Star Wars' vector of user rating with every other movie.Computes pairwise correlation between rows or columns of DataFrame with rows or columns of DataFrame 
+29.scipy.stats.ttest_ind(x,y):This is a two-sided test for the null hypothesis that 2 independent samples have identical average (expected) values. This test assumes that the populations have identical variances by default.returns t-statistics and p-value.
+30.adv = pd.read_csv('Data/Advertising.csv', usecols=[1,2,3,4],na_values='?') : Use usecols when you want to load specific columns into dataframe. use na_values to specify Additional strings to recognize as NA/NaN.
+31.df.pivot(index=, columns=, values=): Return reshaped DataFrame organized by given index and column values.
+32.pandas.cut(x, bins,right=True,precision=3, retbins=False, labels=None):Bin values into discrete intervals.useful for going from a continuous variable to a categorical variable. 
+33.numpy.digitize(x, bins, right=False):Return the indices of the bins to which each value in input array belongs.
+34.cm_df.index.name = 'Predicted' , cm_df.columns.name = 'True': giving names to columns and index in dataframe
+35.df['diagnosis'].value_counts(normalize=True):percentage distribution of each category can be calculated by setting the normalize=True to show percentage of each category instead of count number.
+36.pandas.crosstab(df['Gender'],df['Loan_Status'], normalize=False):Compute a simple cross tabulation of two (or more) factors. By default computes a frequency table of the factors unless an array of values and an aggregation function are passed.
+37. df.div(10): divide each element in dataframe by 10
+38. int(list[:,0]>0) : performing boolen operation on 0th colmn.will return list containing 1 and 0
+39. sklearn.datasets.make_hastie_10_2(n_samples=12000) :generate data for binary classification with 10  std indp Gaussian features 
+40. pd.set_option("display.max_rows",80) : sets the value to the parameter here max_rows
+41. np.reshape(tensor,new_dim,'c') : will reshape array to new dim. c here stand for row major which means elms will be appended row wise. 'f' will append elms column wise i.e 1st colm first then 2nd.you can use -1 for one dim.
+42. np.hstack((ten1,ten2)) : will stack two tensors horizontally for which both tensors must have same no of rows.same for np.vstack().
+43. print('%.2f'%a),print("{0:.2f}".format(a)),print(round(a,2)) :printing a number upto 2 decimal places
+44. np.random.rand(6): random vector containing 6 elms betwn 0 to 1
+45. np.matmul(X1,X2) : mulply 2 matrices like traditionally row,colm multiplication
+46. X2.T : taking transpose of matrix
+47. np.linalg.norm(X1, 'fro') : we can cal varios norms of vects using this fn see docmentatn
+48. os.listdir(directory) : will return list of files containing in given directory
+49. os.path.isdir(directory): check if given directory path if it is directory or file
+50. vector.shape[1] : will return first dimention(rows) of vector
+51. np.linalg.norm(x, axis =1, keepdims = True) : calculating norm of each row(as vector) in matrix
+52. np.dot() return classic matrix multiplication of 2 mtr's while np.multiply() return elementwise multiplication
+53. assert (a.shape == b.shape) : If the condition is true, it does nothing and your program just continues to execute. But if the assert condition evaluates to false, it raises an AssertionError exception
+54. df.dtypes : will return data type of each column in dataframe
+55. os.path.getsize(path) : give you file size in bytes
+56. df.columns : will return list of columns of dataframe
+57. df[(df['SL_FE']<=60) & (df['SL_FE']>=5)] : will return dataframe with rows where 'sl_fe' column values are in range 5-60.
+58. (k[k.columns] == 99).sum() : returns no of times 99 is present in each column
+59. df['SL_S'].value_counts().to_dict() : return the value count of each unique entry in sl_s column as sorted dictonary by keys.
+60. df['SL_MNO'].unique() : will return the unique values in sl_mno column of dataframe
+61. sorted(d.items(), key=lambda x: x[1]) : sorting dictonary by values
+62. df.shape : will return shape of dataframe in tuple
+63. df.iloc[0,:] : select 1st row from its index
+64. df.iloc[:,0] : select 1st column from dataframe using index
+65. random.choices(list, k = 3) : returns random 3 elements from the list
+66. random.choice(list) : returns random elm from the list
+67. mylist.remove(elm) : remove the element from the list
+68. df1['SL_CAST'].value_counts()[df1['SL_CAST'].value_counts()>1] : find out unique values in column sl_cast whose count is greater than 1
+69. df=df.round(3) : rounds all decimal places values in dataframe to 3 decimal places 
+70. https://stackoverflow.com/questions/17071871/how-to-select-rows-from-a-dataframe-based-on-column-values : selecting rows from df with some values
+71. df['SL_TIO2'] = df['SL_TIO2'].fillna((df['SL_TIO2'].mean())) : filling nan values in column with column mean
+72. pd.merge(df1, df2, how='left', left_on=['id_key'], right_on=['fk_key']) : join 2 dataframe of same columns but with different names
+73. pd.concat(g for _, g in df.groupby("ID") if len(g) > 1) : return the row in dataframe which correspond to duplicates heat id's
+74. df = pd.read_csv("Demo.txt",delimiter=',') : reading ',' separated text file as pandas dataframe
+75. df[df['CAST_NO'].isin(ids)] : return the rows in df which has values in 'ids' list in 'cast_no' column
+76. df1.sort_values(by='AP_TIME') : sort dataframe in ascending order w.r.t to column ap_time
+77. Use the ensure_ascii=False in json.dumps() function to save string as normal string and not as unicode characters
+78. list(dict.fromkeys(l).keys()) : remove duplicates from the list and keep list order as it was
+79. df['col1'].iloc[-1] : we will get final element of col1 from df dataframe
+80. df_new.loc[i]['c']= 20 : allocate 20 value to row i in 'c' col
+81. pd.Series(0, index=df_new.columns,dtype=np.int64) : creates pandas series with index as column names and set their values as 0.it is like one column. we can access element like list . 
+82. df.isna().sum() : return null values count in each column of dataframe
+83. df1.isin([0]).sum(): return 0 values count in each column of dataframe
+84. df[df['B']==3]['A'] : select column A value from dataframe where column B value is 3.
+85. any(df.A == 07311954) : to check if value present in column A
+86. df.at[4, 'B'] : access element at 4th index in column 'B'
+87. datetime.strptime('11:15:49', '%H:%M:%S') - datetime.strptime('10:33:26', '%H:%M:%S') : calculates difference between 2 datetime
+88. df2 = df.rename(columns={'a': 'X', 'b': 'Y'}) : will rename column a to x and b to y
+89. dataset.groupby('class').size() : prints size of each class in our target var 'class'
+90. string.maketrans('l','p','!,$'): replace l with p and remove ! and $ , string.punctuation in last position would remove all punctuation from string.
+91. numpy.argsort(arr) : will give list containing the index of sorted elms in original array
+92. df[df['name'].notnull()] :it removes only rows that have NaN values in 'name' column.

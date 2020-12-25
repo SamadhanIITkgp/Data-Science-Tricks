@@ -1,0 +1,41 @@
+links:
+1.https://www.w3schools.com/python/python_regex.asp#findall
+2.https://docs.python.org/3/howto/regex.html
+
+> '.' matches any char except new line
+> '\.' to match that '.' in string 
+> '\d' matches digits betwn (0-9)
+> '\D' matches with anything not a digit 
+> '\w' matches word chars(a-z , A-Z , 0-9,_)
+> '\W' matches anything without word chars
+> '\s' matches whitespace (space, tab, newline)
+> '\S' matches anything not whitespace 
+
+> '\b' find matches with word boundary constaint
+> '\B' opposite of above statement
+> '^' find matches at biginning of string
+> '$' find matchs at end of string
+> | is or , () used for group
+
+quantifiers:(we use it after char )
+> * : 0 or more 
+> + : 1 or more (matches 1 or more of prev char or char set. ) 
+> ? : o or one (means match pattern  if that char is present or not )(basically makes last char optional)
+> d{3} : match pattern like ddd i.e 3 d's repeating
+> d{3,4} : match pattern with repetation in range(3,4) (min-max) . d{2,} : 2 or more
+
+important functions:
+
+1.re.findall("ai", txt): return object of all matches in txt.
+
+2.re.search("pattern", txt): if pattern is present in txt string it will return true else None. can return only 1st match of pattern.
+
+3.re.sub("hi", "9", txt): Return the string obtained by replacing the leftmost non-overlapping occurrences of pattern in string by the replacement '9' .
+
+4.re.finditer(pattern, string) : returns iterators over all pattern matches.(for match in re.finditer(pattern, s1): s = match.start() ,e = match.end(): geting match indexes)
+
+5. re.compile('abc') : create pattern
+
+6. [\#*] (char set) : we put in char we wanted to match .to specify range : [1-5] or [a-z] or [a-zA-Z](lower and upper case), if we put ^  it will match everything not in charset. 
+
+7.re.split(r'[,.(); "\']',str) :  inside of [ ] you put all the characters you want to split by.split the str using multiple delimeters.

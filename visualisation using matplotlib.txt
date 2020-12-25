@@ -1,0 +1,106 @@
+>link-Advanced plotting with matplotlib: https://python4astronomers.github.io/plotting/advanced.html
+> 1.'%matplotlib inline' in a Notebook causes plots to be shown as static images, only 1 call to %matplotlib inline is required.          2. '%matplotlib notebook' in a Notebook enables some interactive features.you have to call this before every plot otherwise I get a     non-rendered object in return.Another way to look at it is that the inline backend effectively closes thefigure object after executing   each cell, while the notebook backend leaves the figure object open.
+
+> diff styles in matplotlib: https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html 
+> saving figure: plt.savefig('C:\\Users\\Frank\\MyPlot.png', format='png')
+> adding grid and legend to figure: axes = plt.axes() 
+                                axes.grid()
+                                axes.legend(['student', 'non-student'], loc=2)
+                                axes.set_ylabel('Balance')
+                                axes.set_ylim(ymax=1550)
+>cmap: is the colormap that should be used to display the plot.
+ex. 1.plt.cm.Set1 2.plt.cm.jet
+link: https://matplotlib.org/examples/color/colormaps_reference.html  (# diff set of colormap)
+>adding horizontal or verticle line in plot: 
+ ex. ax1.hlines(y,xmin,xmax, linestyles='dotted') # Plot horizontal dotted line at y=0 from xmin to xmax.
+    2.ax1.vlines(self, x, ymin, ymax) #draw vertical line
+>plt.tight_layout: tight_layout automatically adjusts subplot params so that the subplot(s) fits in to the figure area.
+>plt.text(1, 1, 'figure1', fontsize=12): add text at position 1,1 ( upper-right ) in plot
+>plt.annotate('R1', xy=(2,117.5), fontsize='xx-large'): annotate/add text('R1') at xy position (https://matplotlib.org/3.1.1/tutorials/text/annotations.html)
+>twinx() and twiny() is used to plot twin axes which share axis with x & y axis resp.
+>differences between subplot() and subplots(): 
+  https://stackoverflow.com/questions/52214776/python-matplotlib-differences-between-subplot-and-subplots
+                                
+1.adding subplots:
+>so if you define a subplot as (2,3,1), that means to break the subplot into a 2 x 3 grid, and place the new subplot in the
+ first cell of that grid.The last number indicates which of those cells to use here 1.
+>ex. fig = plt.figure(figsize=(8,8)) # splitting our figure in 2 portions(1 row, 2 column)
+     ax1 =fig.add_subplot(1, 2, 1)
+     plt.show()
+     
+2.subplot2grid():
+>plt.subplot2grid((3, 2), (0, 0), rowspan=2, colspan=1):  split out grid up into 3 rows by 2 columns, and set our starting index to the top
+left cell. Finally, we need to tell our subplot to take up two of our three rows and 1 column .
+
+3.scatter plots: 
+>scatter draws points without lines connecting them. allows you to apply a different formatting for each data point (color, marker shape, etc...)
+ex.1.plt.scatter(x, y, s=None, c=None, marker=None, cmap=None)
+ >s: The marker size,c : sequence of color,marker:The marker style,cmap :cmap is only used if c is an array of floats.
+  2. plt.scatter(X,Y,c='r',facecolor='None', edgecolor='r',marker='+') 
+    #c par for color,edge color of the marker,facecolor/centralcolor of marker ,marker determine the shape of data points
+    plt.legend()  # detect legends and display it
+    plt.ylim(5,55) # set y axis limit
+ 
+4. plots:
+>plot joins the dots with a line by default (unless you deactivate the line).typically suited to data series of the same type.
+ex. plot(x, y, 'bo')  # plot x and y using blue circle markers
+
+5.histogram:
+ex.plt.hist(values, 50) #plot histogram with values vector and 50 bins
+
+6.pie chart:
+values represent % of portion to each label ,color represent color of each portion and explode to show pulled out parts
+ex.plt.pie(values,colors=colors,labels=labels,explode=explode)
+
+7.bar chart:
+pars: (x coordinates of the bars, values at bars, color of each bar)
+ex. 1.plt.bar(range(0,5), values, color= colors)
+    2.Df.plot(x=None, y=None, kind='hbar') #kind-horizontal bar plot
+    
+8. subplot:
+Create a figure and a set of subplots.returns fig and array of Axes objects.
+ex. 
+# Creates two subplots and unpacks the output array immediately
+f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+ax1.plot(x, y)
+ax1.set_title('Sharing Y axis')
+ax2.scatter(x, y)
+
+9.boxplot:
+ex.plt.boxplot(x)
+
+10.contour plot: 
+>to Plot contours. 
+ex. plt.contourf(x,y,z, levels=[10, 30, 50])
+pars: 1.z=height values over which the contour is drawn
+      2.levels=Determines the number and positions of the contour lines / regions.
+      3.x,y=The coordinates of the values in Z
+11.figure:
+The purpose of using plt.figure() is to create a figure object.It is necessary to explicitly use plt.figure() when we want to tweak the size of the figure rather than default size and when we want to add multiple Axes objects in a single figure.
+    ex. fig=plt.figure(figsize=(12,8))
+    #Add a centered title to the figure.
+    fig.suptitle('RSS - Regression coefficients', fontsize=20)
+    #add subplot to figure
+    ax2 = fig.add_subplot(122, projection='3d')
+    plt.show()
+
+12.3d surface plot: Surface plot shows a functional relationship between a designated dependent variable (Y), and two independent variables (X and Z).
+ex. fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    ax.plot_surface(x, y, z,cmap='viridis', edgecolor='none')
+    ax.set_title('Surface plot')
+    plt.show()
+  
+  
+13.subplot:
+Add a subplot to the current figure.
+ex. 
+# first you have to make the figure
+fig = plt.figure(1)
+
+# now you have to create each subplot individually
+ax1 = plt.subplot(211)
+ax2 = plt.subplot(212)
+plt.show()
+
+14. fig.add_axes([0,0,1,1]) :add an axes to a figure.[x0, y0, width, height] denoting the lower left point of the axes in coodinates (x0,y0) and its width and height

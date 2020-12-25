@@ -1,0 +1,28 @@
+link- https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159?gi=db5d99eab0fc
+     2.https://www.analyticsvidhya.com/blog/2015/11/easy-methods-deal-categorical-variables-predictive-modeling/
+> Machine learning uses only numeric values (float or int data type). However, data sets often contain the object data type 
+ that needs to be transformed into numeric data type.
+>ifcategorical variable has too many levels. This pulls down performance level of the model. For example, a cat.variable “adress”.
+>if most of the observations in data set there is only one level. Variables with such levels fail to make a positive impact on model performance due to very low variation.
+>For nominal columns try OneHot, Hashing, LeaveOneOut, and Target encoding. Avoid OneHot for high unique values columns and decision tree-based algorithms.
+>For ordinal columns try Ordinal (Integer), Binary, OneHot, LeaveOneOut, and Target.For regression tasks, Target and LeaveOneOut probably won’t work well.
+>Note that all Category Encoders impute missing values automatically by default.
+
+ 1.One Hot Encoding:
+ >https://medium.com/hugo-ferreiras-blog/dealing-with-categorical-features-in-machine-learning-1bb70f07262d
+ >useful for non-tree based algorithms
+ >one of the way to adress this is to use One Hot Encoder:
+  from sklearn.preprocessing import OneHotEncoder
+  onehotencoder = OneHotEncoder(categorical_features = [0])
+  X = onehotencoder.fit_transform(X).toarray()
+2.df['housing'] = pd.factorize(df.housing)[0] #will convert categorical values into numeric values,factorize returns labels [0] & unique values [1]
+3.d = {'proper': 0, 'less_proper': 1, 'improper':2,'critical':3,'very_crit':4}
+  df['has nurse'] = df['has nurse'].map(d) #will map values in has nurse attr w.r.t dict d.
+4.train['city'] = train['city'].astype('category').cat.codes
+5.frequency encoding:replacing each category with its frequency or frequency perct.
+ex. #finding no of entries corrsp to each unique values in feature colm
+    encoding=titanic.groupby('feature').size()
+    #calculating perc from size of each unique value
+    encoding=encoding/len(titanic)
+    #map the above encoding value to corrsp unique value in feature colm and create new feature/colm
+    titanic['enc_feat']=titanic.feature.map(encoding)

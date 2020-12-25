@@ -1,0 +1,56 @@
+> how to manage jupyter notebook files: https://www.earthdatascience.org/courses/earth-analytics-bootcamp/git-github-version-control/manage-jupyter-notebooks/
+> you can directly paste link in markdown cell it will interpreted as link not as simple text.
+1.use __  or ** before and after to make text bold/black.
+ex. __text__
+
+2.referencing cells in notebook:
+ steps: 1. - [To some Internal Section](#section_id)  #create the internal hyperlink to the destination
+        2.<a id='section_id'></a>  #define the destination cell you want to link and give it an Id
+ 
+3.display text in sky blue color:
+ex. <a>problem statement<a/>
+
+4.adding web link to text:  syntax- [text](link)
+ex. [Hackathon page](https://datahack.analyticsvidhya.com/contest/practice-problem-loan-prediction-iii/)
+
+5.adding bullet points: add '-' before text 
+ex. - LoanAmount 
+
+6.display an image iif image is inside the notebook dir: <img src="image.png" style="width:400;height:400;">
+
+7.Blockquotes(indexing):
+Blockquotes can hold the large chunk of text and are generally indented. They can be obtained by using Markdown symbol '>' or with <blockquote>text for blockquote</blockquote>
+ex. >This is good
+
+8. Line break:  <br>
+ex. sent1 <br> sent2
+ 
+9.italic text:use <i> , '*' or _ tags  
+ex.
+a.<i>This is italic text </i>  b. *This is italic text*   c. _This is italic text_
+
+10.horizontal line to separate text: '---'
+ex. ---
+
+11.Monospace font(text with white gray background):(`)
+ex. `important notice`
+
+12.To create a sub bullet, press Tab before entering the bullet point using one of the methods described above. 
+ex:
+- Main bullet point
+     - Sub bullet point
+     
+13.Colored note boxes,Graphics,mathematical symbols,Geometric shapes: https://www.ibm.com/support/knowledgecenter/SSQNUZ_1.2.1/com.ibm.icpdata.doc/dsx/markd-jupyter.html
+-----------------------------------------------------------------------------------------------------------------
+
+COLAB:
+
+1. * is used to to get circle bullet point
+
+2. prevent Google Colab from automatically disconnecting: https://medium.com/@shivamrawat_756/how-to-prevent-google-colab-from-disconnecting-717b88a128c0
+
+3. use ! before command line . 
+   ex. !pip install tensorflow
+   
+4. change current directory with %cd new_dir_path . note that first you have to mount the google drive. /content/ is the default directory in colab.
+ex. %cd  /content/drive/My Drive/Colab Notebooks/Chatboat Project

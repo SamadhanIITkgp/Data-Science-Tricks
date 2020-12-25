@@ -1,0 +1,44 @@
+pro tips:
+>If the information contained in the variable is not that high, you can drop the variable if it has more than 50% missing values. sometimes imputation of even 20 - 30% missing values provide's better results - the famous Titanic dataset on Kaggle being one such case. Age is missing in ~20% of cases, but you benefit by imputing them rather than ignoring the variable.
+> you should be very carefull during value imputation if you want to generate new features after imputation because it can lead to   
+  misleading values.so avoid imputation before feature generation.
+
+
+1.delete rows/columns:
+Here, we either delete a particular row/column if it has more than 70-75% of missing values. This method is advised only when there are enough samples in the data set. 
+> we use isnull() for this task:(default:0>delete rows,inplace=True>do operation inplace and return None.
+  1.df.dropna(axis=1): delete the columns where any null values are present 
+  2.df.dropna():delete the rows where any null values are present 
+  3.new_data.dropna(thresh=2): Keep only the rows with at least 2 non-NA values.
+  4.df.dropna(subset=['name', 'born']):Define in which columns to look for missing values.
+  5.new_data = df_train.dropna(thresh =len(df_train) * .8 , axis = 1):droping column where more than 80% values are null
+  
+2. Replacing With Mean/Median/Mode:
+This strategy can be applied on a feature which has numeric data like the age of a person or the ticket fare. We can calculate the mean, median or mode of the feature and replace it with the missing values
+> we use replace() for this:
+  1.df_train['age'].replace(numpy.NaN, df_train['age'].mean()): replace nan values with mean value 
+  2.df_train['age'].replace(numpy.NaN, df_train['age'].median()): replace nan values with median value 
+  3.df_train['age'].replace(numpy.NaN, df_train['age'].mode()): replace nan values with mode value
+  
+3. Assigning An Unique Category for categorical features:
+A categorical feature will have a definite number of possibilities, such as gender, for example. Since they have a definite number of classes, we can assign another class for the missing values. Here, the features Cabin and Embarked have missing values which can be replaced with a new category, say, U for ‘unknown’.Since they are categorical, we need to find one hot encoding to convert it to a numeric form for the algorithm to understand it. 
+>we use fillna() for this:
+  1.df_train['cabin'].fillna('U'):Replace all NaN elements with U's.
+ 
+4. Predicting The Missing Values:
+Using the features which do not have missing values, we can predict the nulls with the help of a machine learning algorithm. This method may result in better accuracy, unless a missing value is expected to have a very high variance. 
+
+5. Using Algorithms Which Support Missing Values:
+KNN is a machine learning algorithm which works on the principle of distance measure. The k-neighbours are chosen using some distance measure and their average is used as an imputation estimate. This could be used for estimating both qualitative attributes (the most frequent value among the k nearest neighbours) and quantitative attributes (the mean of the k nearest neighbours).
+Unfortunately, the SciKit Learn library for the K - Nearest Neighbour algorithm in Python does not support the presence of the missing values.
+Another algorithm which can be used here is RandomForest. This model produces a robust result because it works well on non-linear and the categorical data. It adapts to the data structure taking into consideration of the high variance or the bias, producing better results on large datasets.
+
+>Handle missing data in your training dataset with SciKit Imputer:(strategy:mean,median,most_frequent)
+from sklearn.preprocessing import Imputer
+imputer = Imputer(missing_values = 'NaN', strategy = 'mean')
+imputer = imputer.fit(X.iloc[:, 1:3])
+X[:, 1:3] = imputer.transform(X.iloc[:, 1:3])
+
+>using drop command to drop perticular row/column's:
+df.drop(['B', 'C'], axis=1): will drop column B and C from dataframe
+

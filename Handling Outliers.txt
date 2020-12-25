@@ -1,0 +1,88 @@
+ >>pro-tips:
+ > either remove the outliers records or put upper and lower ceiling.
+ >use Density-based anomaly detection( kNN & LOF based methods),Clustering-based anomaly detection(k-Means clustering),
+  Autoencoder-based anomaly detection or using visualisation.
+ >the best way to detect the outliers is to demonstrate the data visually, statistical methodologies are open to making mistakes but they   are fast.
+ >some times you can treat outliers as measing values and replace them with more proper values.
+ 
+>>some Statistical methodologies for outliers detection:
+1.Outlier Detection with Standard Deviation
+If a value has a distance to the average higher than x * standard deviation, it can be assumed as an outlier. There is no trivial solution for x, but usually, a value between 2 and 4 seems practical.
+
+#code for Dropping the outlier rows with standard deviation
+factor = 3
+upper_lim = data['column'].mean () + data['column'].std () * factor
+lower_lim = data['column'].mean () - data['column'].std () * factor
+data = data[(data['column'] < upper_lim) & (data['column'] > lower_lim)]
+
+2.Outlier Detection with Percentiles
+Another mathematical method to detect outliers is to use percentiles. You can assume a certain percent of the value from the top or the bottom as an outlier. The key point is here to set the percentage value once again, and this depends on the distribution of your data as mentioned earlier.
+#code for Dropping the outlier rows withn 5 Percentiles
+upper_lim = data['column'].quantile(.95)
+lower_lim = data['column'].quantile(.05)
+data = data[(data['column'] < upper_lim) & (data['column'] > lower_lim)]
+
+3.An Outlier Dilemma: Drop or Cap
+Another option for handling outliers is to cap them instead of dropping. So you can keep your data size and at the end of the day, it might be better for the final model performance.
+On the other hand, capping can affect the distribution of the data, thus it better not to exaggerate it.
+
+4.log transformation of data:
+As we take the log transformation, it does not affect the smaller values much, but reduces the larger values. So, we get a distribution similar to normal distribution.
+ex. # log transformation
+    train['Total_Income_log'] = np.log(train['Total_Income'])
+
+#code for Capping the outlier rows with 5 Percentiles
+upper_lim = data['column'].quantile(.95)
+lower_lim = data['column'].quantile(.05)
+data.loc[(df[column] > upper_lim),column] = upper_lim
+data.loc[(df[column] < lower_lim),column] = lower_lim
+
+5.taking rank of data points to decrease the effect of outliers: 
+> linear models, knn and nueral networks can benefit from this transformation
+ex. scipy.stats.rankdata(df)
+
+visualization:
+1.Box plot-(for single variable)
+#code for boxplot on dis column
+import seaborn as sns
+sns.boxplot(x=boston_df['DIS'])
+
+2.Z-Score-(multivariate)
+#finding z score for all dataset
+from scipy import stats
+import numpy as np
+z = np.abs(stats.zscore(boston_df))
+print(z)
+#in output The first array contains the list of row numbers and second array respective column numbers, which mean z[55][1]
+have a Z-score higher than 3.
+let’s try and define a threshold to identify an outlier.
+threshold = 3
+print(np.where(z > 3))
+> removing outliers observation or row's using z-score
+boston_df_o = boston_df_o[(z < 3).all(axis=1)]
+
+3.IQR:(multivariate data)
+#finding iqr of each column 
+Q1 = boston_df_o1.quantile(0.25)
+Q3 = boston_df_o1.quantile(0.75)
+IQR = Q3 - Q1
+print(IQR)
+#The data point where we have False that means these values are valid whereas True indicates presence of an outlier.
+print(boston_df_o1 < (Q1 - 1.5 * IQR)) |(boston_df_o1 > (Q3 + 1.5 * IQR))
+#The below code will remove the outliers from the dataset using iqr.
+boston_df_out = boston_df_o1[~((boston_df_o1 < (Q1 - 1.5 * IQR)) |(boston_df_o1 > (Q3 + 1.5 * IQR))).any(axis=1)]
+
+4.Winsorizing of dataset:
+Winsorizing or winsorization is the transformation of statistics by limiting extreme values in the statistical data to reduce the effect of possibly spurious outliers.
+Note that winsorizing is not equivalent trimming or truncation.In a trimmed estimator, the extreme values are discarded; in a winsorized estimator, the extreme values are instead replaced by certain percentiles (the trimmed minimum and maximum).
+
+Consider the data set consisting of:
+{92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, −40, 101, 86, 85, 15, 89, 89, 28, −5, 41}       (N = 20, mean = 101.5)
+The data below the 5th percentile lies between −40 and −5, while the data above the 95th percentile lies between 101 and 1053. (Values shown in bold.) Then a 90% winsorization would result in the following:
+
+{92, 19, 101, 58, 101, 91, 26, 78, 10, 13, −5, 101, 86, 85, 15, 89, 89, 28, −5, 41}       (N = 20, mean = 55.65)
+Python can winsorize data using SciPy library :
+import scipy.stats
+import numpy as np
+a = np.array([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41])
+scipy.stats.mstats.winsorize(a, limits=[0.05, 0.05])

@@ -1,0 +1,22 @@
+>>below are the command's that give information about pandas dataframe:
+
+1.df_train.describe(): returns summary statistics of each column like mean, 5 pt summary of box plot
+2.df_train.info(): gives info about no of non-null values in each columns and datatype of each column with header names if present.
+3.df_train.head(5): returns top 5 entries of dataframe
+4.df_train.tail(5): returns bottom 5 entries of dataframe
+5.df_train.columns: returns array containing header names and their data type
+6.df_train.isnull().sum(axis = 0) : gives no of null values in each column
+7.len(df_train) - df_train.count(): calculates no of null values in each column (faster than isnull for small datasets)
+8.df_train.isnull().sum(axis = 1) : gives no of null values in each row
+9.df_train.count(axis=0): calculates no of non-null values of each column
+10.df_train.count(axis=1): calculates no of non-null values in each row
+11.df_train.any() or .all(): all check if all values in columns are not null return true and vice-versa 
+12.df_train.notna(): returns no of not null values in each column in df
+13.df.var(axis=0):prints variance of each column of the dataframe
+14.df.shape : returns shape of dataframe
+15.df.values: returns values of all columns without header
+16.df.dtypes: return data types of each column in dataframe
+17.df.select_dtypes(['cat_names']).columns: to select automatically all columns with a certain dtype in a dataframe 
+18.df.corr(method ='pearson') : to find corelation among features , method :pearson(default),kendall,spearman .
+19.df.shape : Return a tuple representing the dimensionality of the DataFrame.
+20.df.size : Return the number of rows if Series. Otherwise return the number of rows times number of columns if DataFrame.

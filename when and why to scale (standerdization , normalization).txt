@@ -1,0 +1,67 @@
+reference:1. https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e
+          2.imp: https://towardsdatascience.com/scale-standardize-or-normalize-with-scikit-learn-6ccc7d176a02
+pro tips:
+1.knn,svm ,nueral network need feature scaling 
+2.egressions don't work well with ordinal values
+
+Why Scaling:
+Most of the times, your dataset will contain features highly varying in magnitudes, units and range. But since, most of the machine 
+learning algorithms use Eucledian distance between two data points in their computations, this is a problem.If left alone, these 
+algorithms only take in the magnitude of features neglecting the units. The results would vary greatly between different units, 
+5kg and 5000gms. The features with high magnitudes will weigh in a lot more in the distance calculations than features with low magnitudes.
+
+How to Scale Features:
+
+There are four common methods to perform Feature Scaling.
+1.Standardisation:
+Standardisation replaces the values by their Z scores.This redistributes the features with their mean μ = 0 and standard deviation σ =1 .sklearn.preprocessing.scale helps us implementing standardisation in python.
+'''
+from sklearn.preprocessing import StandardScaler
+scale = StandardScaler()
+X=scale.fit_transform(X)
+'''
+
+2. Mean Normalisation:
+This distribution will have values between -1 and 1 with μ=0.Standardisation and Mean Normalization can be used for algorithms 
+that assumes zero centric data like Principal Component Analysis(PCA).
+
+3. Min-Max Scaling:
+This scaling brings the value between 0 and 1.
+''' code:
+#normalise dataset using min-max scelar
+from sklearn import preprocessing
+min_max_scaler = preprocessing.MinMaxScaler()
+X_train_minmax = min_max_scaler.fit_transform(df1)
+df2 = pd.DataFrame(X_train_minmax) 
+'''
+
+4. Unit Vector:
+Scaling is done considering the whole feature vecture to be of unit length.Min-Max Scaling and Unit Vector techniques produces values 
+of range [0,1]. When dealing with features with hard boundaries this is quite useful. For example, when dealing with image data, the 
+colors can range from only 0 to 255.
+
+When to Scale:
+Rule of thumb I follow here is any algorithm that computes distance or assumes normality, scale your features!!!
+Some examples of algorithms where feature scaling matters are:
+k-nearest neighbors with an Euclidean distance measure is sensitive to magnitudes and hence should be scaled for all features to weigh in equally.Scaling is critical, while performing Principal Component Analysis(PCA). PCA tries to get the features with maximum variance and the variance is high for high magnitude features. This skews the PCA towards high magnitude features.
+We can speed up gradient descent by scaling. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.Tree based models are not distance based models and can handle varying ranges of features. Hence, Scaling is not required while modelling trees.Algorithms like Linear Discriminant Analysis(LDA), Naive Bayes are by design equipped to handle this and gives weights to the features accordingly. Performing a features scaling in these algorithms may not have much effect.
+
+
+
+
+
+### Standerdization VS Normalization  ###
+
+std vs norm- https://towardsdatascience.com/normalization-vs-standardization-quantitative-analysis-a91e8a79cebf
+
+1. Normalization rescales the values into a range of [0,1]. This might be useful in some cases where all parameters need to have the same 
+positive scale. 
+Xchanged= X−Xmin/Xmax−Xmin
+
+2.Standardization rescales data to have a mean (μ) of 0 and standard deviation (σ) of 1 (unit variance).
+Xchanged=X−μ/σ
+
+> when to use which method:
+
+1.if you have features with clearly defined boundaries, you should prefer normalization as this allows to equalize the weights influence of each feature.
+2. if you have values with possibly extreme outliers, maybe standardization could be useful, so you still get reasonable values for common values (else the common values will be "squished" by the outliers extreme values, eg, if you have values [0 1 2 1E100], if you normalize you will get something around [0.0 0.0 0.0 1.0] which is probably not what you want). Also it would allow to easily apply windsorizing to trim outliers.
